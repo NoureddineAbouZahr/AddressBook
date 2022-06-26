@@ -22,11 +22,8 @@ const userSchema = new mongoose.Schema({
     min: 6,
     max: 1024,
   },
-  date: {
-    type: Date,
-    default: Date.now,
-  },
-  Conacts: [{
+  
+  Contacts: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Contact'
   }],

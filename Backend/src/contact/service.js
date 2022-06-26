@@ -1,5 +1,5 @@
-const Product = require('../../model/Contact');
-
+const Contact = require('../../model/Contact');
+const User=require('../../model/User')
 async function addContact(body) {
   const {
     f_name,
@@ -8,22 +8,24 @@ async function addContact(body) {
     RelationshipStatus,
     Email,
     LocationLongitude,
-    LocationLatitude
+    LocationLatitude,
+    user,
   } = body;
 
-  const user = new Contact({
+  const contact = new Contact({
     f_name,
     l_name,
     phone,
     RelationshipStatus,
     Email,
     LocationLongitude,
-    LocationLatitude
+    LocationLatitude,
+    user,
   });
-  return await user.save();
+  return await contact.save();
 }
-async function getContacts(){
-    return await Contact.find().populate('contacts');
+async function getContacts(id){
+    return await Contact.findById(id).populate('contacts');
 }
 module.exports={
     addContact,

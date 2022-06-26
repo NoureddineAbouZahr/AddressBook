@@ -29,5 +29,11 @@ const contactSchema = new mongoose.Schema({
   },
   LocationLatitude:{
     type:Number,
-  }
+  },
+  user:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+
 });
+module.exports = mongoose.model('Contact', contactSchema);

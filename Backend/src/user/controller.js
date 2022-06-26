@@ -1,7 +1,7 @@
-const { getUser, getById, addUser, getByEmail}= require('./service');
+const { getUsers, getById, addUser, getByEmail}= require('./service');
 const bcrypt = require('bcryptjs');
 const TOKEN_SECRET = process.env.TOKEN_SECRET || "";
-
+const jwt=require('jsonwebtoken');
 
 
 async function get(req, res){
@@ -14,6 +14,10 @@ async function get(req, res){
             console.log('result of specific user =>',ressult);
             return res.send(result);
         }
+        const result= await getUsers();
+        console.log('result =>', result);
+
+    return res.send(result);
     }catch(error){
         console.log(error);
     }
@@ -26,7 +30,7 @@ try{
     const salt=await bcrypt.genSalt(10);
     const hashPassword=await bcrypt.hash(req.body.password,salt);
 
-    const addUserResult = await addUser(req.body.hashPassword);
+    const addUserResult = await addUser(req.body,hashPassword);
     console.log('addUserResult=>',addUserResult);
 
     return res.send({user:addUserResult._id});

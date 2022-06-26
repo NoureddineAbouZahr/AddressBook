@@ -4,6 +4,9 @@ async function getUsers() {
     return await User.find();
     // return await Task.find().populate('user');
   }
+  async function getById(id) {
+    return await User.findById(id).populate('contacts');
+  }
 
   async function addUser(body, hashPassword) {
     const {
@@ -28,8 +31,8 @@ async function getUsers() {
   
   module.exports = {
     getUsers,
-    getById,
     addUser,
+    getById,
     getByEmail,
   }
   
