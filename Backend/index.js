@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require('express');
 const mongoose=require('mongoose');
+const cors=require('cors')
 
 
 const userRouter=require('./src/user/routes');
@@ -13,8 +14,9 @@ mongoose.connect(
 );
 const app=express();
 app.use(express.json());
+app.use(cors());
 
 app.use('/api/users',userRouter);
 app.use('/api/contacts',ContactRouter);
 
-app.listen(3000,()=>console.log('Server is running'));
+app.listen(3001,()=>console.log('Server is running'));
