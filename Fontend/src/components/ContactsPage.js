@@ -1,27 +1,28 @@
+
 import { async } from "q";
 import { useState,useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const ContactsPage = () => {
   const navigate =useNavigate();
   const[contacts,setContacts]=useState([]);
   const[details,setDetails]=useState([]);
 
 
-  const getContacts=()=>{
-    const res= await fetch("http://localhost:3001/api/contacts//getconts:id");
-    const data=await res.json();
-    return data;
-  };
+  // const getContacts=async()=>{
+  //   const res= await fetch("http://localhost:3001/api/contacts//getconts:id");
+  //   const data=await res.json();
+  //   return data;
+  // };
 
 
-  useEffect(()=>{
-    const getData=async()=>{
-      const conts=await getContacts();
-      setContacts(conts);
+  // useEffect(()=>{
+  //   const getData=async()=>{
+  //     const conts=await getContacts();
+  //     setContacts(conts);
 
-    };
-    getData;
-  },[])
+  //   };
+  //   getData;
+  // },[])
   return (
     <div className="contactsContainer">
       Contacts
@@ -43,6 +44,7 @@ const ContactsPage = () => {
 
             </div>
           </div>
+          <Link to="/addContact">Add new contact</Link>
           </div>
         );
       })}

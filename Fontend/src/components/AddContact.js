@@ -1,12 +1,14 @@
 
 import { useState } from 'react';
+import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+
 import { BrowserRouter as Router, Route, Switch,Link ,useHistory,useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import React from 'react'
 import { option } from 'yargs';
 
 
-const Signup = () => {
+const AddContact = () => {
     const [f_name,setFname]=useState("");
     const [l_name,setLname]=useState("");
     const [phone,setPhone]=useState("");
@@ -18,7 +20,7 @@ const Signup = () => {
     
     const onSubmit=(e)=>{
             
-        if(!email || !password){
+        if(!email ){
             alert('input data')
             return
         }
@@ -114,12 +116,18 @@ const Signup = () => {
                 placeholder='Email'
                 onChange={e=>setEmail(e.target.value)}  />
             </div>
-            <div className="form-control">
-                <label htmlFor="password">Password: </label>
-                <input type="password" name='password' id='password' 
-                placeholder='Password'
-                onChange={e=>setPassword(e.target.value)}  />
+            <div>
+            <Map google={this.props.google} zoom={14}>
+ 
+            <Marker onClick={this.onMarkerClick}
+                    name={'Current location'} />
+
+               <InfoWindow onClose={this.onInfoWindowClose}>
+               
+               </InfoWindow>
+            </Map>
             </div>
+           
             <input type="submit" value=" Sign Up"  className="btn btn-block"/>
             {/* <a className='sua' href="">Sign Up</a> */}
             <Link className='sua' to = '/Login' >Log In</Link>
@@ -128,4 +136,7 @@ const Signup = () => {
   )
 }
 
-export default Signup
+
+export default GoogleApiWrapper({
+    apiKey: ("AIzaSyD4mwpq0FOJaugg3GJSEpGn0c48VcvLatM")
+  })(AddContact)
