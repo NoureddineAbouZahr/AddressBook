@@ -29,10 +29,10 @@ async function add(req,res){
 }
 async function get(req, res) {
     try {
-      console.log(req.query);
-  
-      const result = await getContacts();
-      console.log('result =>', result);
+     
+      const result = await getContacts(req.query.id);
+      console.log('result =>', result)
+      console.log('id',req.query.id)
   
       return res.send(result);
     } catch (error) {

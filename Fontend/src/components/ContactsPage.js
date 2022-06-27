@@ -1,28 +1,31 @@
-
 import { async } from "q";
 import { useState,useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import {Link } from 'react-router-dom'
+import jwt from 'jwt-decode'
+
 const ContactsPage = () => {
   const navigate =useNavigate();
   const[contacts,setContacts]=useState([]);
   const[details,setDetails]=useState([]);
 
+  useEffect(()=>{
 
-  // const getContacts=async()=>{
-  //   const res= await fetch("http://localhost:3001/api/contacts//getconts:id");
-  //   const data=await res.json();
-  //   return data;
-  // };
+  const getContacts=async()=>{
+    const res= await fetch("http://localhost:3001/api/contacts/getconts?"+ new URLSearchParams({
+      id: jwt(localStorage.getItem('-token'))._id,
+  }));
+    const data=await res.json();
+    setContacts(data);
+
+    console.log(data);
+
+  };
+  getContacts();
+},[])
 
 
-  // useEffect(()=>{
-  //   const getData=async()=>{
-  //     const conts=await getContacts();
-  //     setContacts(conts);
 
-  //   };
-  //   getData;
-  // },[])
   return (
     <div className="contactsContainer">
       Contacts
@@ -37,18 +40,18 @@ const ContactsPage = () => {
             <div className="contDetails">
               <h3>Phone: {contact.phone}</h3>
               <h3>Relationship Status: {contact.RelationshipStatus}</h3>
-              <h3>Email: {contact.email}</h3>
+              <h3>Email: {contact.Email}</h3>
               <div>Location: 
 
               </div>
 
             </div>
           </div>
-          <Link to="/addContact">Add new contact</Link>
+          
           </div>
         );
       })}
-
+      <Link to="/addcontact">Add</Link>
     </div>
   )
 }

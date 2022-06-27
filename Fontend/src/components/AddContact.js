@@ -1,11 +1,7 @@
 
 import { useState } from 'react';
-import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
-
 import { BrowserRouter as Router, Route, Switch,Link ,useHistory,useNavigate} from 'react-router-dom'
 import axios from 'axios'
-import React from 'react'
-import { option } from 'yargs';
 
 
 const AddContact = () => {
@@ -20,7 +16,7 @@ const AddContact = () => {
     
     const onSubmit=(e)=>{
             
-        if(!email ){
+        if(!email){
             alert('input data')
             return
         }
@@ -60,7 +56,7 @@ const AddContact = () => {
             localStorage.clear();
             // localStorage.setItem('access_token',response.data['access_token']);
             
-            window.location="/contacts"
+            
             
         }).catch(function(error){
             alert(error)
@@ -116,17 +112,6 @@ const AddContact = () => {
                 placeholder='Email'
                 onChange={e=>setEmail(e.target.value)}  />
             </div>
-            <div>
-            <Map google={this.props.google} zoom={14}>
- 
-            <Marker onClick={this.onMarkerClick}
-                    name={'Current location'} />
-
-               <InfoWindow onClose={this.onInfoWindowClose}>
-               
-               </InfoWindow>
-            </Map>
-            </div>
            
             <input type="submit" value=" Sign Up"  className="btn btn-block"/>
             {/* <a className='sua' href="">Sign Up</a> */}
@@ -136,7 +121,4 @@ const AddContact = () => {
   )
 }
 
-
-export default GoogleApiWrapper({
-    apiKey: ("AIzaSyD4mwpq0FOJaugg3GJSEpGn0c48VcvLatM")
-  })(AddContact)
+export default AddContact

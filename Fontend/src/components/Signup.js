@@ -81,7 +81,7 @@ const Signup = () => {
             </div>
             <input type="submit" value=" Sign Up"  className="btn btn-block"/>
             {/* <a className='sua' href="">Sign Up</a> */}
-            <Link className='sua' to = '/Login' >Log In</Link>
+            <Link className='sua' to = '/' >Log In</Link>
         </div>
     </form>
   )

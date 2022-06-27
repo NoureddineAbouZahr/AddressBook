@@ -25,7 +25,8 @@ async function addContact(body) {
   return await contact.save();
 }
 async function getContacts(id){
-    return await Contact.findById(id).populate('contacts');
+    const u = await User.findById(id).populate('Contacts');
+    return u.Contacts;
 }
 module.exports={
     addContact,

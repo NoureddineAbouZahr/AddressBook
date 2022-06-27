@@ -39,6 +39,7 @@ const Login = () => {
         }).then(function (response) {
             localStorage.clear();
             // localStorage.setItem('access_token',response.data['access_token']);
+            localStorage.setItem('-token',response.data)
             window.location="/contacts"
             
             
