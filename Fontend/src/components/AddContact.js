@@ -1,5 +1,6 @@
 
 import { useState } from 'react';
+import {Map} from 'pigeon-maps';
 import { BrowserRouter as Router, Route, Switch,Link ,useHistory,useNavigate} from 'react-router-dom'
 import axios from 'axios'
 
@@ -12,6 +13,8 @@ const AddContact = () => {
     const [email,setEmail]=useState("");
     const [locationX,setLocationX]=useState("");
     const [locationY,setLocationY]=useState("");
+    const [center,setCenter]=useState([50.879,4.6997])
+    const[zoom,setZoom]=useState(11)
 
     
     const onSubmit=(e)=>{
@@ -32,7 +35,8 @@ const AddContact = () => {
             relationshipStatus:relationshipStatus,
             email:email,
             locationX:locationX,
-            locationY:locationY
+            locationY:locationY,
+            user:localStorage.getItem('-token')._id
             
         }
         console.log(data)
@@ -112,8 +116,20 @@ const AddContact = () => {
                 placeholder='Email'
                 onChange={e=>setEmail(e.target.value)}  />
             </div>
+            <div>
+            <label htmlFor="location">Location: </label>
+            <Map 
+                height={300}
+                center={center} 
+                zoom={zoom} 
+                onBoundsChanged={({ center, zoom }) => { 
+                    setCenter(center) 
+                    setZoom(zoom) 
+                }} 
+    />
+            </div>
            
-            <input type="submit" value=" Sign Up"  className="btn btn-block"/>
+            <input type="submit" value=" +Add+"  className="btn btn-block"/>
             {/* <a className='sua' href="">Sign Up</a> */}
             <Link className='sua' to = '/Login' >Log In</Link>
         </div>
