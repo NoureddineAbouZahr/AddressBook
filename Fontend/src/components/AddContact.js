@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import {Map} from 'pigeon-maps';
+import {Map,Marker} from 'pigeon-maps';
 import { BrowserRouter as Router, Route, Switch,Link ,useHistory,useNavigate} from 'react-router-dom'
 import axios from 'axios'
 
@@ -13,20 +13,18 @@ const AddContact = () => {
     const [email,setEmail]=useState("");
     const [locationX,setLocationX]=useState("");
     const [locationY,setLocationY]=useState("");
-    const [center,setCenter]=useState([50.879,4.6997])
+    const [center,setCenter]=useState([33.5571,35.3729])
     const[zoom,setZoom]=useState(11)
+    const[marker,setMarker]=useState([33.5571,35.3729])
 
     
     const onSubmit=(e)=>{
             
-        if(!email){
-            alert('input data')
-            return
-        }
+     
         e.preventDefault();
 
 
-        // let data =new FormData();
+        // let data =new FormData();<Marker width={50} anchor={[50.879, 4.6997]} />
         // data.append("email",email)
         // data.append("password",password)
         let data={
@@ -34,8 +32,8 @@ const AddContact = () => {
             l_name:l_name,
             relationshipStatus:relationshipStatus,
             email:email,
-            locationX:locationX,
-            locationY:locationY,
+            locationX:marker[1],
+            locationY:marker[0],
             user:localStorage.getItem('-token')._id
             
         }
@@ -69,6 +67,9 @@ const AddContact = () => {
             
 
         
+    }
+    function tag({latLng}){
+        setMarker(latLng);
     }
   return (
     <form  action='' className='login-form container sup' onSubmit={onSubmit}>
@@ -116,17 +117,20 @@ const AddContact = () => {
                 placeholder='Email'
                 onChange={e=>setEmail(e.target.value)}  />
             </div>
-            <div>
+            <div className="map">
             <label htmlFor="location">Location: </label>
-            <Map 
+            <Map  
                 height={300}
                 center={center} 
                 zoom={zoom} 
                 onBoundsChanged={({ center, zoom }) => { 
                     setCenter(center) 
                     setZoom(zoom) 
-                }} 
-    />
+                }}
+                onClick={tag} >
+                    <Marker width={50} anchor={marker}/>
+                </Map>
+    
             </div>
            
             <input type="submit" value=" +Add+"  className="btn btn-block"/>
