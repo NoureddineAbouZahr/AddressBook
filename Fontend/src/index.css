@@ -80,5 +80,14 @@ h2{
 .sup{
   margin-top: 50px;
 }
-
+.contDetails{
+  display: flexbox;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.CC{
+  display: flexbox;
+  flex-direction: column;
+  justify-content: flex-start;
+}
 
